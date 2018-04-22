@@ -17,4 +17,4 @@
 	    -n --num        minimum number of occurences the word appears [default: 20]  
 	    -f --file	    name of output file (.csv) [default: results.csv]  
 
-The results will be stored in "results.csv". 
+The results will be stored in a .csv file in the working directory with the filename you specified or "results.csv" if you did not specify a filename. 
