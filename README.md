@@ -9,11 +9,12 @@
 # Usage
 
 	Usage: 
-    	tweet_analyzer [-u USER] [-n NUMBER OF OCCURENCES]
+    	tweet_analyzer [-u USER] [-n NUMBER OF OCCURENCES] [-f OUTPUTFILE]
 
 	Options:
-	    -h --help       show this
-	    -u --user       username of account to analyze
+	    -h --help       show this  
+	    -u --user       username of account to analyze  
 	    -n --num        minimum number of occurences the word appears [default: 20]  
+	    -f --file 		name of output file (.csv) [default: results.csv]  
 
 The results will be stored in "results.csv". 
