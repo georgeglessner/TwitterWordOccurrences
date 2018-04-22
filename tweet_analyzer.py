@@ -6,12 +6,13 @@
 Find the most common words in a user's Twitter feed 
 
 Usage: 
-    tweet_analyzer [--user USER] [--num NUMBER OF OCCURENCES]
+    tweet_analyzer [--user USER] [--num NUMBER OF OCCURENCES] [-f OUTPUTFILE]
 
 Options:
     -h --help       show this
     -u --user       username of account to analyze
-    -n --num        minimum number of occurences the word appears [default: 20]             
+    -n --num        minimum number of occurences the word appears [default: 20]    
+    -f --file       name of output file (.csv) [default: results.csv]         
 
 '''
 
@@ -32,6 +33,7 @@ from collections import defaultdict
 
 
 def main():
+    # add arguments
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '-u', '--user', type=str, help='username of account to analyze')
@@ -39,10 +41,18 @@ def main():
         '-n',
         '--num',
         type=int,
-        help='minimum number of occurences the word appers [default: 20]')
+        help='minimum number of occurences the word appers [default: 20]',
+        default=20)
+    parser.add_argument(
+        '-f',
+        '--file',
+        type=str,
+        help='name of output file (.csv)',
+        default='results.csv')
 
     args = parser.parse_args()
 
+    # parse arguments
     if args.user:
         user = '@' + args.user
     else:
@@ -51,13 +61,18 @@ def main():
 
     if args.num:
         num_occurences = int(args.num)
-    else:
-        num_occurences = 20
+
+    if args.file:
+        if '.csv' not in args.file:
+            output_file = args.file + '.csv'
+        else:
+            output_file = args.file
 
     tweets = []
     count = dict()
     total_tweets_analyzed = 0
 
+    # make connection
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
@@ -68,30 +83,33 @@ def main():
     for tweet in tweepy.Cursor(api.user_timeline, screen_name=user).items():
         tweets.append(tweet._json['text'].lower())
 
-    # get rid of common words
+    # get rid of stop words
+    # list of stop words https://gist.github.com/sebleier/554280
+    stop_words = stopwords.words('english') + list(
+        string.punctuation) + ['“', '”']
+
+    # words to ignore in results
+    BACKLIST_WORDS = [
+        'https',
+        '``',
+        '...',
+        'http',
+        'rt',
+    ]
+
+    # analyze tweets
     for tweet in tweets:
         total_tweets_analyzed += 1
         for word in tweet.split(' '):
             words = nltk.word_tokenize(word.replace("'", ""))
-            stop_words = stopwords.words('english') + list(
-                string.punctuation) + ['“', '”']
             filtered_words = [word for word in words if word not in stop_words]
 
             if len(filtered_words) > 0:
-                if filtered_words[0] not in [
-                        'https',
-                        '``',
-                        '...',
-                        'http',
-                        'rt',
-                ]:
-                    if filtered_words[0] in count:
-                        count[filtered_words[0]] += 1
-                    else:
-                        count[filtered_words[0]] = 1
+                if filtered_words[0] not in BACKLIST_WORDS:
+                    count[filtered_words[0]] += 1
 
     # create a csv file with the results
-    with open('results.csv', 'w') as file:
+    with open(output_file, 'w') as file:
         output = csv.writer(file)
         output.writerow(['Word occurences in tweets by ' + user])
         output.writerow(['Word', '# of Occurences'])
