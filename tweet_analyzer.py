@@ -16,16 +16,19 @@ Options:
 '''
 
 import string
-from collections import Counter
 import nltk
+import tweepy
+import csv
+import argparse
+from credentials import consumer_key
+from credentials import consumer_secret
+from credentials import access_token
+from credentials import access_token_secret
+from collections import Counter
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
 from twitter_scraper import get_tweets
 from collections import defaultdict
-import tweepy
-from credentials import *
-import csv
-import argparse
 
 
 def main():
