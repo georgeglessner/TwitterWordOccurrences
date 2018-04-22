@@ -15,6 +15,6 @@
 	    -h --help       show this  
 	    -u --user       username of account to analyze  
 	    -n --num        minimum number of occurences the word appears [default: 20]  
-	    -f --file 		name of output file (.csv) [default: results.csv]  
+	    -f --file	    name of output file (.csv) [default: results.csv]  
 
 The results will be stored in "results.csv". 
