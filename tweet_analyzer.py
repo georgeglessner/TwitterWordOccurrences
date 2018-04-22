@@ -99,7 +99,7 @@ def main():
             if count.get(result) > num_occurences and len(result) > 1:
                 output.writerow([result, str(count.get(result))])
 
-    print('Completed! Total tweets analyzed: {}'.format(total_tweets_analyzed))
+    print(f'Completed! Total tweets analyzed:{total_tweets_analyzed}')
 
 
 if __name__ == '__main__':
