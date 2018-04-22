@@ -68,7 +68,7 @@ def main():
             output_file = args.file
 
     tweets = []
-    count = dict()
+    count = defaultdict(int)
     total_tweets_analyzed = 0
 
     # make connection
