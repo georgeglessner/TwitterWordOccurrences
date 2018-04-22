@@ -110,13 +110,13 @@ def main():
     # create a csv file with the results
     with open(output_file, 'w') as file:
         output = csv.writer(file)
-        output.writerow(['Word occurences in tweets by ' + user])
-        output.writerow(['Word', '# of Occurences'])
+        output.writerow(['Word occurrences in tweets by ' + user])
+        output.writerow(['Word', '# of Occurrences'])
         for result in count:
             if count.get(result) > num_occurences and len(result) > 1:
                 output.writerow([result, str(count.get(result))])
 
-    print(f'Completed! Total tweets analyzed:{total_tweets_analyzed}')
+    print(f'Completed! Total tweets analyzed: {total_tweets_analyzed}')
 
 
 if __name__ == '__main__':
