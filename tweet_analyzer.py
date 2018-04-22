@@ -25,7 +25,6 @@ from credentials import consumer_key
 from credentials import consumer_secret
 from credentials import access_token
 from credentials import access_token_secret
-from collections import Counter
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
 from twitter_scraper import get_tweets
