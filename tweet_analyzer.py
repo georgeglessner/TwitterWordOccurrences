@@ -67,16 +67,17 @@ def main():
         else:
             output_file = args.file
 
-    tweets = []
+    tweets = []  # list of tweets obtained from user timeline
     count = defaultdict(int)
     total_tweets_analyzed = 0
+    total_results = 0
 
     # make connection
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
-    print('\nAnalyzing tweets. This could take a few seconds.')
+    print('\nAnalyzing tweets. This could take a few seconds...')
 
     # get tweets from user's timeline
     for tweet in tweepy.Cursor(api.user_timeline, screen_name=user).items():
@@ -115,8 +116,10 @@ def main():
         for result in count:
             if count.get(result) > num_occurences and len(result) > 1:
                 output.writerow([result, str(count.get(result))])
+                total_results += 1
 
-    print(f'Completed! Total tweets analyzed: {total_tweets_analyzed}')
+    print(f'\nCompleted! Total tweets analyzed: {total_tweets_analyzed}')
+    print(f'Total results found: {total_results}')
 
 
 if __name__ == '__main__':
