@@ -11,7 +11,7 @@ Usage:
 Options:
     -h --help       show this
     -u --user       username of account to analyze
-    -n --num        minimum number of occurences the word appears [default: 20]    
+    -n --num        minimum number of occurrences the word appears [default: 20]    
     -f --file       name of output file (.csv) [default: results.csv]         
 
 '''
