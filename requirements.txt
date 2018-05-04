@@ -1,3 +1,2 @@
 nltk
-twitter-scraper
 tweepy

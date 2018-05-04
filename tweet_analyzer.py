@@ -6,7 +6,7 @@
 Find the most common words in a user's Twitter feed 
 
 Usage: 
-    tweet_analyzer [--user USER] [--num NUMBER OF OCCURENCES] [-f OUTPUTFILE]
+    tweet_analyzer [--user USER] [--num NUMBER OF OCCURRENCES] [-f OUTPUTFILE]
 
 Options:
     -h --help       show this
@@ -27,7 +27,6 @@ from credentials import access_token
 from credentials import access_token_secret
 from nltk.corpus import stopwords
 from nltk.corpus import wordnet as wn
-from twitter_scraper import get_tweets
 from collections import defaultdict
 
 
@@ -40,7 +39,7 @@ def main():
         '-n',
         '--num',
         type=int,
-        help='minimum number of occurences the word appers [default: 20]',
+        help='minimum number of occurrences the word appers [default: 20]',
         default=20)
     parser.add_argument(
         '-f',
@@ -59,7 +58,7 @@ def main():
         user = '@' + user
 
     if args.num:
-        num_occurences = int(args.num)
+        num_occurrernces = int(args.num)
 
     if args.file:
         if '.csv' not in args.file:
@@ -114,7 +113,7 @@ def main():
         output.writerow(['Word occurrences in tweets by ' + user])
         output.writerow(['Word', '# of Occurrences'])
         for result in count:
-            if count.get(result) > num_occurences and len(result) > 1:
+            if count.get(result) > num_occurrences and len(result) > 1:
                 output.writerow([result, str(count.get(result))])
                 total_results += 1
 
