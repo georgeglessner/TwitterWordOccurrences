@@ -58,7 +58,7 @@ def main():
         user = '@' + user
 
     if args.num:
-        num_occurrernces = int(args.num)
+        num_occurrences = int(args.num)
 
     if args.file:
         if '.csv' not in args.file:
